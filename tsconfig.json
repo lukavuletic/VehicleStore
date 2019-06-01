@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "allowJs": true,
+		"outDir": "generated",
+        "allowSyntheticDefaultImports": true
+    }
+}
