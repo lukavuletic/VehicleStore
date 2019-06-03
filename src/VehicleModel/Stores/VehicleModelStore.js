@@ -43,8 +43,9 @@ class VehicleModelStore{
 		};
 	}
 
-    add(data){
-
+    add(){
+        console.log('tu sam');
+        debugger;
     }
 
     get(id){

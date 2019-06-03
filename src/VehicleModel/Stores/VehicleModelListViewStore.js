@@ -1,6 +1,11 @@
 import {observable, computed, action} from 'mobx';
 
 class VehicleModelListViewStore {    
+    constructor(moduleStore){
+        this.moduleStore = moduleStore;
+		this.vehicleModelStore = moduleStore.vehicleModelStore;
+	}
+	
 	@observable	page = 0; 
 	@observable	rpp = 10;
 	@observable	searchString = "";
@@ -10,11 +15,6 @@ class VehicleModelListViewStore {
     @computed get items() {
 		return this.vehicleModelStore.find(this.searchString, this.page, this.rpp, this.orderBy, this.orderDirection);
 	}
-
-    constructor(moduleStore){
-        this.moduleStore = moduleStore;
-		this.vehicleModelStore = moduleStore.vehicleModelStore;
-    }
 
 	@action.bound
 	deleteItem(e){

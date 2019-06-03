@@ -9,7 +9,6 @@ class VehicleModelModuleStore{
         this.vehicleModelStore = new VehicleModelStore(this);
         
         this.vehicleModelListViewStore = new VehicleModelListViewStore(this);
-        this.vehicleModelCreateViewStore = new VehicleModelCreateViewStore(this);
     }
 }
 

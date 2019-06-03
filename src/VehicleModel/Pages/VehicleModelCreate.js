@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react';
 
 import { defaultTemplate } from '../../Common/hoc';
 import SimpleInput from '../../Components/simpleInput';
-import form from '../Stores/vehicleModelForm'
+import form from '../Stores/VehicleModelCreateViewStore'
 
 const styles = {
     root: {
@@ -12,9 +12,6 @@ const styles = {
 };
 const $btn = 'f6 link dim bn br2 ph3 pv2 mr2 dib white bg-dark-blue';
 
-@inject(i => ({
-    vehicleModelCreateViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelCreateViewStore
-}))
 @inject('rootStore')
 
 @observer
@@ -26,8 +23,6 @@ class VehicleModelCreate extends Component {
     };
 
     render() {
-        const { createItem, test, modelName, abrv } = this.props.vehicleModelCreateViewStore;
-
         const { rootStore } = this.props;
         const { params } = rootStore.routerStore.routerState;
 
