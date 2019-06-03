@@ -1,6 +1,5 @@
 import VehicleModelStore from './VehicleModelStore';
 import VehicleModelListViewStore from './VehicleModelListViewStore';
-import VehicleModelCreateViewStore from './VehicleModelCreateViewStore';
 
 class VehicleModelModuleStore{
     constructor(rootStore){

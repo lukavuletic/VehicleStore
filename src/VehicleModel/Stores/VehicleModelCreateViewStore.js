@@ -38,9 +38,7 @@ const fields = [
 
 const hooks = {
   onSuccess(form) {
-    // get field values
-    console.log("Form Values!", form.values());
-    return vehicleModelStore.add();
+    return vehicleModelStore.add(form.values());
   },
   onError(form) {
     alert("Form has errors!");
