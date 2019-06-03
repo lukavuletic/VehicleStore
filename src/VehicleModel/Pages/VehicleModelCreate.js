@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 
 import { defaultTemplate } from '../../Common/hoc';
+import SimpleInput from '../../Components/simpleInput';
+import form from '../Stores/vehicleModelForm'
 
 const styles = {
     root: {
         padding: 16
     }
 };
+const $btn = 'f6 link dim bn br2 ph3 pv2 mr2 dib white bg-dark-blue';
 
 @inject(i => ({
-    VehicleModelCreateViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelCreateViewStore
+    vehicleModelCreateViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelCreateViewStore
 }))
 @inject('rootStore')
 
@@ -23,7 +26,7 @@ class VehicleModelCreate extends Component {
     };
 
     render() {
-        const { createItem } = this.props.vehicleModelCreateViewStore;
+        const { createItem, test, modelName, abrv } = this.props.vehicleModelCreateViewStore;
 
         const { rootStore } = this.props;
         const { params } = rootStore.routerStore.routerState;
@@ -38,12 +41,19 @@ class VehicleModelCreate extends Component {
                 </div>
 
                 {/* INPUT FIELDS FOR CREATE */}
-                <form>
-                    name: <input type="text" name="name" placeholder="320d" />
-                    abrv: <input type="text" name="abrv" placeholder="BMW" />
-                    makeid: <input type="text" name="makeid" placeholder="643" />
+                <form onSubmit={form.onSubmit}>
+                    <SimpleInput field={form.$('id')} />
+                    <SimpleInput field={form.$('MakeId')} />
+                    <SimpleInput field={form.$('Name')} />
+                    <SimpleInput field={form.$('Abrv')} />
+
+                    <br />
+                    <button type="submit" className={$btn} onClick={form.onSubmit}>Submit</button>
+                    <button type="button" className={$btn} onClick={form.onClear}>Clear</button>
+                    <button type="button" className={$btn} onClick={form.onReset}>Reset</button>
+
+                    <p>{form.error}</p>
                 </form>
-                <button onClick={createItem}>Go Home!</button>
             </div>
         )
     }
