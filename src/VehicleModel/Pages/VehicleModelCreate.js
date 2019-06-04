@@ -3,7 +3,6 @@ import { observer, inject } from 'mobx-react';
 
 import { defaultTemplate } from '../../Common/hoc';
 import SimpleInput from '../../Components/simpleInput';
-import form from '../Stores/VehicleModelForm'
 
 const styles = {
     root: {
@@ -12,6 +11,9 @@ const styles = {
 };
 const $btn = 'f6 link dim bn br2 ph3 pv2 mr2 dib white bg-dark-blue';
 
+@inject(i => ({
+    vehicleModelCreateViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelCreateViewStore
+}))
 @inject('rootStore')
 
 @observer
@@ -23,11 +25,17 @@ class VehicleModelCreate extends Component {
     };
 
     render() {
+        const { createItem, form } = this.props.vehicleModelCreateViewStore;
+
+        // const {page, rpp, searchString, orderBy, orderDirection, items, totalItems} = data;
+
         const { rootStore } = this.props;
         const { params } = rootStore.routerStore.routerState;
 
         return (
             <div>
+                <button onClick={createItem}>stisni</button>
+
                 {/* ROUTING */}
                 <div style={styles.root}>
                     <h1>Welcome to models {params.id}</h1>
@@ -43,7 +51,7 @@ class VehicleModelCreate extends Component {
                     <SimpleInput field={form.$('Abrv')} />
 
                     <br />
-                    <button type="submit" className={$btn} onClick={form.onSubmit}>Submit</button>
+                    <button type="submit" className={$btn} onClick={createItem}>Submit</button>
                     <button type="button" className={$btn} onClick={form.onClear}>Clear</button>
                     <button type="button" className={$btn} onClick={form.onReset}>Reset</button>
 

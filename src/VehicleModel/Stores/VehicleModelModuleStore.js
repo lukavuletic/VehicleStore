@@ -1,5 +1,6 @@
 import VehicleModelStore from './VehicleModelStore';
 import VehicleModelListViewStore from './VehicleModelListViewStore';
+import VehicleModelCreateViewStore from './VehicleModelCreateViewStore';
 
 class VehicleModelModuleStore{
     constructor(rootStore){
@@ -8,6 +9,7 @@ class VehicleModelModuleStore{
         this.vehicleModelStore = new VehicleModelStore(this);
         
         this.vehicleModelListViewStore = new VehicleModelListViewStore(this);
+        this.vehicleModelCreateViewStore = new VehicleModelCreateViewStore(this);
     }
 }
 
