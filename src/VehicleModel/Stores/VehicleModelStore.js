@@ -22,6 +22,7 @@ class VehicleModelStore{
     ];
     
     find(searchString, page, rpp, orderBy, orderDirection) {
+        console.log(this.data);
         let currentData = this.data.slice();
 
         if(searchString != null && searchString !== '') {

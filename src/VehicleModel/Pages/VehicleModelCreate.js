@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react';
 
 import { defaultTemplate } from '../../Common/hoc';
 import SimpleInput from '../../Components/simpleInput';
-import form from '../Stores/VehicleModelCreateViewStore'
+import form from '../Stores/VehicleModelForm'
 
 const styles = {
     root: {
