@@ -13,14 +13,16 @@ export const HomePage = inject('rootStore')(
             return (
                 <div style={styles.root}>
                     <h1>Home</h1>
-                    <button onClick={this.handleClick}>Go to models</button>
+                    <button value={'models'} onClick={this.handleClick}>Go to models</button>
+                    <button value={'makes'} onClick={this.handleClick}>Go to makes</button>
                 </div>
             );
         }
 
-        handleClick = () => {
+        handleClick = (e) => {
             const { rootStore } = this.props;
-            rootStore.routerStore.goTo('models');
+            const value = e.target.value;
+            rootStore.routerStore.goTo(value);
         };
     }
 );

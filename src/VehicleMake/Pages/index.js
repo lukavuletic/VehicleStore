@@ -1,0 +1,1 @@
+export {default as VehicleMakeModulePage} from './VehicleMakeModulePage';
