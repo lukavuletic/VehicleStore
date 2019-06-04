@@ -45,7 +45,6 @@ class VehicleModelCreate extends Component {
 
                 {/* INPUT FIELDS FOR CREATE */}
                 <form onSubmit={form.onSubmit}>
-                    <SimpleInput field={form.$('id')} />
                     <SimpleInput field={form.$('MakeId')} />
                     <SimpleInput field={form.$('Name')} />
                     <SimpleInput field={form.$('Abrv')} />

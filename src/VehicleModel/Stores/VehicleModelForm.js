@@ -22,12 +22,6 @@ export default class VehicleModelForm extends Form {
     return {
       fields: [
         {
-          name: "id",
-          label: "ID",
-          placeholder: "Insert ID",
-          rules: "required|integer"
-        },
-        {
           name: "MakeId",
           label: "make ID",
           placeholder: "Insert make's ID",

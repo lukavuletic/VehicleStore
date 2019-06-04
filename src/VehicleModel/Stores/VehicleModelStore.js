@@ -44,6 +44,12 @@ class VehicleModelStore{
 	}
 
     add(newModel){
+        let maxID = 0;
+        this.data.map(function(obj){
+            if(obj.id > maxID) maxID = obj.id;
+            return maxID += 1;
+        });
+        newModel.id = Number(maxID);
         this.data.push(newModel);
     }
 
