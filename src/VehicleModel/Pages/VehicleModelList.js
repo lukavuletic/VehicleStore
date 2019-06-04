@@ -29,6 +29,12 @@ class VehicleModelList extends Component {
         rootStore.routerStore.goTo(value);
     };
 
+    handleClickEdit = (e) => {
+        const { rootStore } = this.props;
+        const value = e.target.value;
+        rootStore.routerStore.goTo('modelsID', { id: value });
+    };
+
     render() {
 		const {items: data, setOrderDirection, setSearchString, setOrderBy, handleSkip, setRpp, deleteItem} = this.props.vehicleModelListViewStore;
 
@@ -65,7 +71,7 @@ class VehicleModelList extends Component {
                                 <td>{item.Name}</td>
                                 <td>{item.Abrv}</td>
                                 <td>{item.MakeId}</td>
-                                <td><button>edit</button><button value={item.id} onClick={deleteItem}>delete</button></td>
+                                <td><button value={item.id} onClick={this.handleClickEdit}>edit</button><button value={item.id} onClick={deleteItem}>delete</button></td>
                             </tr>
                             )}
                         </tbody>

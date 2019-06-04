@@ -1,7 +1,7 @@
 import { computed, action } from 'mobx';
 import VehicleModelForm from './VehicleModelForm';
 
-class VehicleModelListViewStore {    
+class VehicleModelCreateViewStore {    
     constructor(moduleStore){
         this.moduleStore = moduleStore;
         this.vehicleModelStore = moduleStore.vehicleModelStore;
@@ -18,4 +18,4 @@ class VehicleModelListViewStore {
     }
 }
 
-export default VehicleModelListViewStore;
+export default VehicleModelCreateViewStore;

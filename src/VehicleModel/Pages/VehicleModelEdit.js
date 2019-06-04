@@ -12,12 +12,12 @@ const styles = {
 const $btn = 'f6 link dim bn br2 ph3 pv2 mr2 dib white bg-dark-blue';
 
 @inject(i => ({
-    vehicleModelCreateViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelCreateViewStore
+    vehicleModelEditViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelEditViewStore
 }))
 @inject('rootStore')
 
 @observer
-class VehicleModelCreate extends Component {
+class VehicleModelEdit extends Component {
     handleClick = (e) => {
         const { rootStore } = this.props;
         const value = e.target.value;
@@ -25,7 +25,7 @@ class VehicleModelCreate extends Component {
     };
 
     render() {
-        const { createItem, form } = this.props.vehicleModelCreateViewStore;
+        const { form, editItem } = this.props.vehicleModelEditViewStore;
 
         const { rootStore } = this.props;
         const { params } = rootStore.routerStore.routerState;
@@ -34,7 +34,7 @@ class VehicleModelCreate extends Component {
             <div>
                 {/* ROUTING */}
                 <div style={styles.root}>
-                    <h1>Welcome to models {params.id}</h1>
+                    <h1>Editing item with ID of: {params.id}</h1>
                     <button value={'home'} onClick={this.handleClick}>Go Home!</button>
                     <button value={'models'} onClick={this.handleClick}>Go back to models!</button>
                 </div>
@@ -46,7 +46,7 @@ class VehicleModelCreate extends Component {
                     <SimpleInput field={form.$('Abrv')} />
 
                     <br />
-                    <button type="submit" className={$btn} onClick={createItem}>Submit</button>
+                    <button type="submit" className={$btn} onClick={editItem}>Submit</button>
                     <button type="button" className={$btn} onClick={form.onClear}>Clear</button>
                     <button type="button" className={$btn} onClick={form.onReset}>Reset</button>
 
@@ -57,4 +57,4 @@ class VehicleModelCreate extends Component {
     }
 }
 
-export default defaultTemplate(VehicleModelCreate);
+export default defaultTemplate(VehicleModelEdit);
