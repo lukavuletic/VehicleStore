@@ -25,19 +25,22 @@ export default class VehicleModelForm extends Form {
           name: "MakeId",
           label: "make ID",
           placeholder: "Insert make's ID",
-          rules: "required|integer"
+          rules: "required|integer",
+          value: ''
         },
         {
           name: "Name",
           label: "model name",
           placeholder: "Insert model's name",
-          rules: "required|string|between:1,25"
+          rules: "required|string|between:1,25",
+          value: ''
         },
         {
           name: "Abrv",
           label: "model abrv",
           placeholder: "Insert model's abrv",
-          rules: "required|string"
+          rules: "required|string",
+          value: ''
         }
       ],
     };

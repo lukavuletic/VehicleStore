@@ -1,4 +1,4 @@
-import { computed, action } from 'mobx';
+import { computed, action, observable } from 'mobx';
 import VehicleModelForm from './VehicleModelForm';
 
 class VehicleModelEditViewStore {
@@ -8,13 +8,21 @@ class VehicleModelEditViewStore {
     this.form = new VehicleModelForm();
   }
 
+  @observable id = 0
+
   @computed get items() {
-    return this.vehicleModelStore.find(this.searchString, this.page, this.rpp, this.orderBy, this.orderDirection);
+    return this.vehicleModelStore.get(this.id);
   }
 
   @action.bound
   editItem() {
-    console.log('here');
+    console.log(this.id);
+    return this.vehicleModelStore.update(this.form.values(), this.id);
+  }
+
+  @action.bound
+  getItemID(newID) {
+    this.id = newID;
   }
 }
 

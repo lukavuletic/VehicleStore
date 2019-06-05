@@ -25,10 +25,16 @@ class VehicleModelEdit extends Component {
     };
 
     render() {
-        const { form, editItem } = this.props.vehicleModelEditViewStore;
+        const { form, editItem, getItemID, items: data } = this.props.vehicleModelEditViewStore;
+
+        const { items } = data;
 
         const { rootStore } = this.props;
         const { params } = rootStore.routerStore.routerState;
+
+        getItemID(params.id);
+
+        console.log(data.items);
 
         return (
             <div>
@@ -39,8 +45,20 @@ class VehicleModelEdit extends Component {
                     <button value={'models'} onClick={this.handleClick}>Go back to models!</button>
                 </div>
 
+                <table>
+                    <thead></thead>
+                    <tbody>
+                        <tr>
+                            <td>{items.id}</td>
+                            <td>{items.Name}</td>
+                            <td>{items.Abrv}</td>
+                            <td>{items.MakeId}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
                 {/* INPUT FIELDS FOR CREATE */}
-                <form onSubmit={form.onSubmit}>
+                <form onSubmit={form.onSubmit} set={form}>
                     <SimpleInput field={form.$('MakeId')} />
                     <SimpleInput field={form.$('Name')} />
                     <SimpleInput field={form.$('Abrv')} />

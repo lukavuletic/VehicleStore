@@ -43,6 +43,15 @@ class VehicleModelStore{
 		};
 	}
 
+    get(id){
+        // wants to strictly compare 'any' and 'number' types (gives warning)
+        // eslint-disable-next-line
+        let itemIndex = this.data.findIndex(function(i){return i.id == id;});
+        return {
+            items: this.data[itemIndex]
+        }
+    }
+
     add(newModel){
         let maxID = 0;
         this.data.map(function(obj){
@@ -53,12 +62,12 @@ class VehicleModelStore{
         this.data.push(newModel);
     }
 
-    get(id){
-
-    }
-
-    update(item){
-
+    update(editedModel, id){
+        // remove item with given id
+        this.data.splice(this.data.findIndex(function(i){return i.id == id;}), 1);
+        // add item with that id
+        editedModel.id = Number(id);
+        this.data.push(editedModel);
     }
 
     delete(id){
