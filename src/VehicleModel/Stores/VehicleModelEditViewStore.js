@@ -16,7 +16,6 @@ class VehicleModelEditViewStore {
 
   @action.bound
   editItem() {
-    console.log(this.id);
     return this.vehicleModelStore.update(this.form.values(), this.id);
   }
 

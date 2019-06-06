@@ -1,27 +1,54 @@
 import _ from 'lodash';
 import { observable } from 'mobx';
+import VehicleMakeStore from '../../VehicleMake/Stores/VehicleMakeStore';
+
+const vehicleMakeStore = new VehicleMakeStore();
 
 class VehicleModelStore{
     @observable data = [
-        {id: 0, MakeId: 234, Name: "320d", Abrv: "BMW"},
-        {id: 1, MakeId: 523, Name: "118d", Abrv: "BMW"},
-        {id: 2, MakeId: 432, Name: "X5", Abrv: "BMW"},
-        {id: 3, MakeId: 876, Name: "540d", Abrv: "BMW"},
-        {id: 4, MakeId: 252, Name: "330c", Abrv: "BMW"},
-        {id: 5, MakeId: 524, Name: "M5", Abrv: "BMW"},
-        {id: 6, MakeId: 674, Name: "M3", Abrv: "BMW"},
-        {id: 7, MakeId: 1234, Name: "525tds", Abrv: "BMW"},
-        {id: 8, MakeId: 463, Name: "330i", Abrv: "BMW"},
-        {id: 9, MakeId: 432, Name: "528d", Abrv: "BMW"},
-        {id: 10, MakeId: 7654, Name: "316d", Abrv: "BMW"},
-        {id: 11, MakeId: 623, Name: "318d", Abrv: "BMW"},
-        {id: 12, MakeId: 513, Name: "323d", Abrv: "BMW"},
-        {id: 13, MakeId: 21, Name: "420d", Abrv: "BMW"},
-        {id: 14, MakeId: 875, Name: "320cd", Abrv: "BMW"},
-        {id: 15, MakeId: 653, Name: "Freelander", Abrv: "Land Rover"}
+        {id: 0, Name: "320d", Abrv: "BMW"},
+        {id: 1, Name: "118d", Abrv: "BMW"},
+        {id: 2, Name: "X5", Abrv: "BMW"},
+        {id: 3, Name: "540d", Abrv: "BMW"},
+        {id: 4, Name: "330c", Abrv: "BMW"},
+        {id: 5, Name: "M5", Abrv: "BMW"},
+        {id: 6, Name: "M3", Abrv: "BMW"},
+        {id: 7, Name: "525tds", Abrv: "BMW"},
+        {id: 8, Name: "330i", Abrv: "BMW"},
+        {id: 9, Name: "528d", Abrv: "BMW"},
+        {id: 10, Name: "316d", Abrv: "BMW"},
+        {id: 11, Name: "318d", Abrv: "BMW"},
+        {id: 12, Name: "323d", Abrv: "BMW"},
+        {id: 13, Name: "420d", Abrv: "BMW"},
+        {id: 14, Name: "320cd", Abrv: "BMW"},
+        {id: 15, Name: "Freelander", Abrv: "Land Rover"}
     ];
+
+    sortMakeID() {
+        let makeData = vehicleMakeStore.data.slice();
+        let modelData = this.data.slice();
+        let returnedID = 0;
+        
+        modelData.forEach(function(element){
+            // runs this function for each object in modelData array
+            // element.Abrv gets Abrv of each object in modelData
+            let currentModelAbrv = element.Abrv;
+            makeData.forEach(function(element){
+                // runs this function for each object in makeData array
+                // element.Abrv gets Abrv of each object in modelData
+                // wants to strictly compare 'any' and 'number' types (gives warning)
+                // eslint-disable-next-line
+                if(element.Abrv == currentModelAbrv){
+                    returnedID = element.id;
+                }
+                return returnedID;
+            });
+            element.MakeId = returnedID;
+        });
+    }
     
     find(searchString, page, rpp, orderBy, orderDirection) {
+        this.sortMakeID();
         let currentData = this.data.slice();
 
         if(searchString != null && searchString !== '') {
@@ -44,6 +71,7 @@ class VehicleModelStore{
 	}
 
     get(id){
+        this.sortMakeID();
         // wants to strictly compare 'any' and 'number' types (gives warning)
         // eslint-disable-next-line
         let itemIndex = this.data.findIndex(function(i){return i.id == id;});
@@ -64,6 +92,8 @@ class VehicleModelStore{
 
     update(editedModel, id){
         // remove item with given id
+        // wants to strictly compare 'any' and 'number' types (gives warning)
+        // eslint-disable-next-line
         this.data.splice(this.data.findIndex(function(i){return i.id == id;}), 1);
         // add item with that id
         editedModel.id = Number(id);

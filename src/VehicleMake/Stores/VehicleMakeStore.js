@@ -3,22 +3,10 @@ import { observable } from 'mobx';
 
 class VehicleMakeStore{
     @observable data = [
-        {id: 0, Name: "320d", Abrv: "BMW"},
-        {id: 1, Name: "118d", Abrv: "BMW"},
-        {id: 2, Name: "X5", Abrv: "BMW"},
-        {id: 3, Name: "540d", Abrv: "BMW"},
-        {id: 4, Name: "330c", Abrv: "BMW"},
-        {id: 5, Name: "M5", Abrv: "BMW"},
-        {id: 6, Name: "M3", Abrv: "BMW"},
-        {id: 7, Name: "525tds", Abrv: "BMW"},
-        {id: 8, Name: "330i", Abrv: "BMW"},
-        {id: 9, Name: "528d", Abrv: "BMW"},
-        {id: 10, Name: "316d", Abrv: "BMW"},
-        {id: 11, Name: "318d", Abrv: "BMW"},
-        {id: 12, Name: "323d", Abrv: "BMW"},
-        {id: 13, Name: "420d", Abrv: "BMW"},
-        {id: 14, Name: "320cd", Abrv: "BMW"},
-        {id: 15,  Name: "Freelander", Abrv: "Land Rover"}
+        {id: 0, Name: "Bayerische Motoren Werke", Abrv: "BMW"},
+        {id: 1, Name: "Volkswagen", Abrv: "VW"},
+        {id: 2, Name: "Land Rover", Abrv: "Land Rover"},
+        {id: 3, Name: "Mercedes-Benz", Abrv: "Mercedes"}
     ];
     
     find(searchString, page, rpp, orderBy, orderDirection) {
