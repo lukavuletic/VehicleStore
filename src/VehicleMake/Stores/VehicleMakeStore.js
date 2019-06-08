@@ -3,14 +3,25 @@ import { observable } from 'mobx';
 
 class VehicleMakeStore{
     @observable data = [
-        {id: 0, Name: "Bayerische Motoren Werke", Abrv: "BMW"},
-        {id: 1, Name: "Volkswagen", Abrv: "VW"},
-        {id: 2, Name: "Land Rover", Abrv: "Land Rover"},
-        {id: 3, Name: "Mercedes-Benz", Abrv: "Mercedes"}
+        {id: 0, Name: "Bayerische Motoren Werke", Abrv: "bmw"},
+        {id: 1, Name: "Volkswagen", Abrv: "vw"},
+        {id: 2, Name: "Land Rover", Abrv: "land-rover"},
+        {id: 3, Name: "Mercedes-Benz", Abrv: "mercedes-benz"}
     ];
+
+    @observable currentMakeIds = [];
     
     find(searchString, page, rpp, orderBy, orderDirection) {
         let currentData = this.data.slice();
+        let currentMakeIds = this.currentMakeIds.slice();
+        
+        currentData.forEach(function(element){            
+            // eslint-disable-next-line            
+            if(currentMakeIds.includes(element.id) == false){
+                currentMakeIds.push(element.id);
+            }
+            return currentMakeIds;
+        });
 
         if(searchString != null && searchString !== '') {
             currentData = currentData.filter(car => car.Name.toLowerCase().includes(searchString.toLowerCase()));
@@ -27,7 +38,8 @@ class VehicleMakeStore{
 			orderBy: orderBy,
             orderDirection: orderDirection,
             totalItems: totalItems,
-			items: currentData
+			items: currentData,
+            selectableMakeIds: currentMakeIds
 		};
 	}
 

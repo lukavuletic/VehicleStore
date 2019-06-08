@@ -3,7 +3,6 @@ import dvr from 'mobx-react-form/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 
 export default class VehicleModelForm extends Form {
-
   /*
     Below we are returning a `plugins` object using the `validatorjs` package
     to enable `DVR` functionalities (Declarative Validation Rules).
@@ -19,6 +18,7 @@ export default class VehicleModelForm extends Form {
     with a `rules` property for the validation.
   */
   setup() {
+
     return {
       fields: [
         {
@@ -26,14 +26,7 @@ export default class VehicleModelForm extends Form {
           label: "model name",
           placeholder: "Insert model's name",
           rules: "required|string|between:1,25",
-          value: ''
-        },
-        {
-          name: "Abrv",
-          label: "model abrv",
-          placeholder: "Insert model's abrv",
-          rules: "required|string",
-          value: ''
+          value: ""
         }
       ],
     };

@@ -12,9 +12,10 @@ const styles = {
 const $btn = 'f6 link dim bn br2 ph3 pv2 mr2 dib white bg-dark-blue';
 
 @inject(i => ({
-    vehicleModelCreateViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelCreateViewStore
+    vehicleModelCreateViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelCreateViewStore,
+    vehicleMakeListViewStore: i.rootStore.vehicleMakeModuleStore.vehicleMakeListViewStore,
+    rootStore: i.rootStore
 }))
-@inject('rootStore')
 
 @observer
 class VehicleModelCreate extends Component {
@@ -24,9 +25,13 @@ class VehicleModelCreate extends Component {
         rootStore.routerStore.goTo(value);
     };
 
+    
     render() {
-        const { createItem, form } = this.props.vehicleModelCreateViewStore;
+        const { createItem, form, setMakeID, makeID } = this.props.vehicleModelCreateViewStore;
 
+        const {items: dataMake} = this.props.vehicleMakeListViewStore;
+        const {selectableMakeIds} = dataMake;
+        
         const { rootStore } = this.props;
         const { params } = rootStore.routerStore.routerState;
 
@@ -42,7 +47,14 @@ class VehicleModelCreate extends Component {
                 {/* INPUT FIELDS FOR CREATE */}
                 <form onSubmit={form.onSubmit}>
                     <SimpleInput field={form.$('Name')} />
-                    <SimpleInput field={form.$('Abrv')} />
+                    <div>
+                        model make id
+                        <select onChange={setMakeID} value={makeID}>
+                            {selectableMakeIds.map(selectableMakeId => 
+                                <option value={selectableMakeId}>{selectableMakeId}</option>
+                            )}
+                        </select>
+                    </div>
 
                     <br />
                     <button type="submit" className={$btn} onClick={createItem}>Submit</button>

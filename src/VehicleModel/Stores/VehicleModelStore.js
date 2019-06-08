@@ -1,54 +1,27 @@
 import _ from 'lodash';
 import { observable } from 'mobx';
-import VehicleMakeStore from '../../VehicleMake/Stores/VehicleMakeStore';
-
-const vehicleMakeStore = new VehicleMakeStore();
 
 class VehicleModelStore{
     @observable data = [
-        {id: 0, Name: "320d", Abrv: "BMW"},
-        {id: 1, Name: "118d", Abrv: "BMW"},
-        {id: 2, Name: "X5", Abrv: "BMW"},
-        {id: 3, Name: "540d", Abrv: "BMW"},
-        {id: 4, Name: "330c", Abrv: "BMW"},
-        {id: 5, Name: "M5", Abrv: "BMW"},
-        {id: 6, Name: "M3", Abrv: "BMW"},
-        {id: 7, Name: "525tds", Abrv: "BMW"},
-        {id: 8, Name: "330i", Abrv: "BMW"},
-        {id: 9, Name: "528d", Abrv: "BMW"},
-        {id: 10, Name: "316d", Abrv: "BMW"},
-        {id: 11, Name: "318d", Abrv: "BMW"},
-        {id: 12, Name: "323d", Abrv: "BMW"},
-        {id: 13, Name: "420d", Abrv: "BMW"},
-        {id: 14, Name: "320cd", Abrv: "BMW"},
-        {id: 15, Name: "Freelander", Abrv: "Land Rover"}
+        {id: 0, Name: "320d", Abrv: "320d", MakeId: "0"},
+        {id: 1, Name: "118d", Abrv: "118d", MakeId: "0"},
+        {id: 2, Name: "X5", Abrv: "x5", MakeId: "0"},
+        {id: 3, Name: "540d", Abrv: "540d", MakeId: "0"},
+        {id: 4, Name: "330c", Abrv: "330c", MakeId: "0"},
+        {id: 5, Name: "M5", Abrv: "m5", MakeId: "0"},
+        {id: 6, Name: "M3", Abrv: "m3", MakeId: "0"},
+        {id: 7, Name: "525tds", Abrv: "525tds", MakeId: "0"},
+        {id: 8, Name: "330i", Abrv: "330i", MakeId: "0"},
+        {id: 9, Name: "528d", Abrv: "528d", MakeId: "0"},
+        {id: 10, Name: "316d", Abrv: "316d", MakeId: "0"},
+        {id: 11, Name: "318d", Abrv: "318d", MakeId: "0"},
+        {id: 12, Name: "323d", Abrv: "323d", MakeId: "0"},
+        {id: 13, Name: "420d", Abrv: "420d", MakeId: "0"},
+        {id: 14, Name: "320cd", Abrv: "320cd", MakeId: "0"},
+        {id: 15, Name: "Freelander", Abrv: "freelander", MakeId: "2"}
     ];
-
-    sortMakeID() {
-        let makeData = vehicleMakeStore.data.slice();
-        let modelData = this.data.slice();
-        let returnedID = 0;
-        
-        modelData.forEach(function(element){
-            // runs this function for each object in modelData array
-            // element.Abrv gets Abrv of each object in modelData
-            let currentModelAbrv = element.Abrv;
-            makeData.forEach(function(element){
-                // runs this function for each object in makeData array
-                // element.Abrv gets Abrv of each object in modelData
-                // wants to strictly compare 'any' and 'number' types (gives warning)
-                // eslint-disable-next-line
-                if(element.Abrv == currentModelAbrv){
-                    returnedID = element.id;
-                }
-                return returnedID;
-            });
-            element.MakeId = returnedID;
-        });
-    }
     
     find(searchString, page, rpp, orderBy, orderDirection) {
-        this.sortMakeID();
         let currentData = this.data.slice();
 
         if(searchString != null && searchString !== '') {
@@ -66,12 +39,11 @@ class VehicleModelStore{
 			orderBy: orderBy,
             orderDirection: orderDirection,
             totalItems: totalItems,
-			items: currentData
+            items: currentData
 		};
-	}
+    }
 
     get(id){
-        this.sortMakeID();
         // wants to strictly compare 'any' and 'number' types (gives warning)
         // eslint-disable-next-line
         let itemIndex = this.data.findIndex(function(i){return i.id == id;});
@@ -80,23 +52,27 @@ class VehicleModelStore{
         }
     }
 
-    add(newModel){
+    add(newModel, makeId){
         let maxID = 0;
         this.data.map(function(obj){
             if(obj.id > maxID) maxID = obj.id;
             return maxID += 1;
         });
-        newModel.id = Number(maxID);
+        newModel.id = maxID;
+        newModel.MakeId = makeId;
+        newModel.Abrv = String(newModel.Name.toLowerCase().trim().replace(/ /g, "-"));
         this.data.push(newModel);
     }
 
-    update(editedModel, id){
+    update(editedModel, id, makeID, abrv){
         // remove item with given id
         // wants to strictly compare 'any' and 'number' types (gives warning)
         // eslint-disable-next-line
         this.data.splice(this.data.findIndex(function(i){return i.id == id;}), 1);
         // add item with that id
         editedModel.id = Number(id);
+        editedModel.MakeId = Number(makeID);
+        editedModel.Abrv = String(abrv)
         this.data.push(editedModel);
     }
 

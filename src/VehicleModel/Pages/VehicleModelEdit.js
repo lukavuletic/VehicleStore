@@ -12,9 +12,10 @@ const styles = {
 const $btn = 'f6 link dim bn br2 ph3 pv2 mr2 dib white bg-dark-blue';
 
 @inject(i => ({
-    vehicleModelEditViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelEditViewStore
+    vehicleModelEditViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelEditViewStore,
+    vehicleMakeListViewStore: i.rootStore.vehicleMakeModuleStore.vehicleMakeListViewStore,
+    rootStore: i.rootStore
 }))
-@inject('rootStore')
 
 @observer
 class VehicleModelEdit extends Component {
@@ -25,16 +26,18 @@ class VehicleModelEdit extends Component {
     };
 
     render() {
-        const { form, editItem, getItemID, items: data } = this.props.vehicleModelEditViewStore;
-
+        const { form, editItem, getItemID, items: data, setMakeID, makeID } = this.props.vehicleModelEditViewStore;
         const { items } = data;
+
+        const { items: dataMake } = this.props.vehicleMakeListViewStore;
+        const { selectableMakeIds } = dataMake;
 
         const { rootStore } = this.props;
         const { params } = rootStore.routerStore.routerState;
 
         getItemID(params.id);
 
-        console.log(data.items);
+        console.log(selectableMakeIds)
 
         return (
             <div>
@@ -58,12 +61,27 @@ class VehicleModelEdit extends Component {
                 </table>
 
                 {/* INPUT FIELDS FOR CREATE */}
-                <form onSubmit={form.onSubmit} set={form}>
+                <form onSubmit={form.onSubmit}>
                     <SimpleInput field={form.$('Name')} />
-                    <SimpleInput field={form.$('Abrv')} />
+                    <div>
+                        model make id
+                        <select onChange={setMakeID} value={makeID} required>
+                            {selectableMakeIds.map((selectableMakeId) => {
+                                    console.log(items.MakeId + ' ' + selectableMakeId);
+                                    // eslint-disable-next-line
+                                    if(items.MakeId == selectableMakeId){
+                                        console.log('set selected value');
+                                        return <option value={selectableMakeId} selected>{selectableMakeId}</option>;
+                                    }else{
+                                        return <option value={selectableMakeId}>{selectableMakeId}</option>;
+                                    }
+                                } 
+                            )}
+                        </select>
+                    </div>
 
                     <br />
-                    <button type="submit" className={$btn} onClick={editItem}>Submit</button>
+                    <button type="submit" className={$btn} onClick={editItem} value={items.Abrv}>Submit</button>
                     <button type="button" className={$btn} onClick={form.onClear}>Clear</button>
                     <button type="button" className={$btn} onClick={form.onReset}>Reset</button>
 

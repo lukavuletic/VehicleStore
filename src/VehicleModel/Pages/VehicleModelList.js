@@ -37,7 +37,6 @@ class VehicleModelList extends Component {
 
     render() {
 		const {items: data, setOrderDirection, setSearchString, setOrderBy, handleSkip, setRpp, deleteItem} = this.props.vehicleModelListViewStore;
-
         const {page, rpp, searchString, orderBy, orderDirection, items, totalItems} = data;
 
         const { rootStore } = this.props;
