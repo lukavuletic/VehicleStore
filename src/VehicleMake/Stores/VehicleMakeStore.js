@@ -1,10 +1,10 @@
 import _ from 'lodash';
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 
 class VehicleMakeStore{
     @observable data = [
-        {id: 0, Name: "Bayerische Motoren Werke", Abrv: "bmw"},
-        {id: 1, Name: "Volkswagen", Abrv: "vw"},
+        {id: 0, Name: "Bayerische Motoren Werke", Abrv: "bayerische-motoren-werke"},
+        {id: 1, Name: "Volkswagen", Abrv: "volkswagen"},
         {id: 2, Name: "Land Rover", Abrv: "land-rover"},
         {id: 3, Name: "Mercedes-Benz", Abrv: "mercedes-benz"}
     ];
@@ -13,15 +13,6 @@ class VehicleMakeStore{
     
     find(searchString, page, rpp, orderBy, orderDirection) {
         let currentData = this.data.slice();
-        let currentMakeIds = this.currentMakeIds.slice();
-        
-        currentData.forEach(function(element){            
-            // eslint-disable-next-line            
-            if(currentMakeIds.includes(element.id) == false){
-                currentMakeIds.push(element.id);
-            }
-            return currentMakeIds;
-        });
 
         if(searchString != null && searchString !== '') {
             currentData = currentData.filter(car => car.Name.toLowerCase().includes(searchString.toLowerCase()));
@@ -38,10 +29,34 @@ class VehicleMakeStore{
 			orderBy: orderBy,
             orderDirection: orderDirection,
             totalItems: totalItems,
-			items: currentData,
-            selectableMakeIds: currentMakeIds
+			items: currentData
 		};
-	}
+    }
+    
+    // gets make IDs and changes array from VehicleModelCreateViewStore into make id values
+    @action.bound
+    getMakeIDs (makeIDs) {
+        // object that gets filled by id and name
+        let currentMakeID = {};
+        // create currentMakeIds that is a copy of observable
+        let currentMakeIds = this.currentMakeIds.slice();
+        // execute following logic for each element in this.data
+        this.data.forEach(function(element){
+            // if currentMakeIds contains id same as in data, don't push it into currentMakeIds, otherwise push data's unique id into currentMakeIds 
+            // eslint-disable-next-line            
+            if(currentMakeIds.includes(element.id) == false){
+                // assign id and name to an object
+                currentMakeID.id = element.id;
+                currentMakeID.Name = element.Name;
+                // push object into array
+                currentMakeIds.push(currentMakeID);
+            }
+            // equalize makeIDs array from currentMakeIds values
+            makeIDs = currentMakeIds;
+        });
+        // returns makeIDs array into VehicleModelCreateViewStore's method that calls getMakeIDs
+        return makeIDs;
+    }
 
     add(newModel){
         this.data.push(newModel);

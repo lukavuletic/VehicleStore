@@ -1,26 +1,27 @@
 import _ from 'lodash';
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 
 class VehicleModelStore{
     @observable data = [
-        {id: 0, Name: "320d", Abrv: "320d", MakeId: "0"},
-        {id: 1, Name: "118d", Abrv: "118d", MakeId: "0"},
-        {id: 2, Name: "X5", Abrv: "x5", MakeId: "0"},
-        {id: 3, Name: "540d", Abrv: "540d", MakeId: "0"},
-        {id: 4, Name: "330c", Abrv: "330c", MakeId: "0"},
-        {id: 5, Name: "M5", Abrv: "m5", MakeId: "0"},
-        {id: 6, Name: "M3", Abrv: "m3", MakeId: "0"},
-        {id: 7, Name: "525tds", Abrv: "525tds", MakeId: "0"},
-        {id: 8, Name: "330i", Abrv: "330i", MakeId: "0"},
-        {id: 9, Name: "528d", Abrv: "528d", MakeId: "0"},
-        {id: 10, Name: "316d", Abrv: "316d", MakeId: "0"},
-        {id: 11, Name: "318d", Abrv: "318d", MakeId: "0"},
-        {id: 12, Name: "323d", Abrv: "323d", MakeId: "0"},
-        {id: 13, Name: "420d", Abrv: "420d", MakeId: "0"},
-        {id: 14, Name: "320cd", Abrv: "320cd", MakeId: "0"},
-        {id: 15, Name: "Freelander", Abrv: "freelander", MakeId: "2"}
+        {id: 0, Name: "320d", Abrv: "320d", MakeId: 0},
+        {id: 1, Name: "118d", Abrv: "118d", MakeId: 0},
+        {id: 2, Name: "X5", Abrv: "x5", MakeId: 0},
+        {id: 3, Name: "540d", Abrv: "540d", MakeId: 0},
+        {id: 4, Name: "330c", Abrv: "330c", MakeId: 0},
+        {id: 5, Name: "M5", Abrv: "m5", MakeId: 0},
+        {id: 6, Name: "M3", Abrv: "m3", MakeId: 0},
+        {id: 7, Name: "525tds", Abrv: "525tds", MakeId: 0},
+        {id: 8, Name: "330i", Abrv: "330i", MakeId: 0},
+        {id: 9, Name: "528d", Abrv: "528d", MakeId: 0},
+        {id: 10, Name: "316d", Abrv: "316d", MakeId: 0},
+        {id: 11, Name: "318d", Abrv: "318d", MakeId: 0},
+        {id: 12, Name: "323d", Abrv: "323d", MakeId: 0},
+        {id: 13, Name: "420d", Abrv: "420d", MakeId: 0},
+        {id: 14, Name: "320cd", Abrv: "320cd", MakeId: 0},
+        {id: 15, Name: "Freelander", Abrv: "freelander", MakeId: 2}
     ];
     
+    @action.bound 
     find(searchString, page, rpp, orderBy, orderDirection) {
         let currentData = this.data.slice();
 
@@ -43,6 +44,7 @@ class VehicleModelStore{
 		};
     }
 
+    @action.bound 
     get(id){
         // wants to strictly compare 'any' and 'number' types (gives warning)
         // eslint-disable-next-line
@@ -52,6 +54,7 @@ class VehicleModelStore{
         }
     }
 
+    @action.bound 
     add(newModel, makeId){
         let maxID = 0;
         this.data.map(function(obj){
@@ -64,6 +67,7 @@ class VehicleModelStore{
         this.data.push(newModel);
     }
 
+    @action.bound 
     update(editedModel, id, makeID, abrv){
         // remove item with given id
         // wants to strictly compare 'any' and 'number' types (gives warning)
@@ -76,6 +80,7 @@ class VehicleModelStore{
         this.data.push(editedModel);
     }
 
+    @action.bound 
     delete(id){
         // wants to strictly compare 'any' and 'number' types (gives warning)
         // eslint-disable-next-line

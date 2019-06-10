@@ -37,8 +37,6 @@ class VehicleModelEdit extends Component {
 
         getItemID(params.id);
 
-        console.log(selectableMakeIds)
-
         return (
             <div>
                 {/* ROUTING */}
