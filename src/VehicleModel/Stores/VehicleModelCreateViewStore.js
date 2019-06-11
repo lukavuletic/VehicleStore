@@ -9,9 +9,8 @@ class VehicleModelCreateViewStore {
         this.form = new VehicleModelForm(this);
     }
     
-    // @observable makeID = 0;
     // array that will store make IDs
-    @observable makeIDs = []
+    @observable makeIDs = [];
 
     // returns model items and model data
     @computed get items() {
@@ -19,20 +18,14 @@ class VehicleModelCreateViewStore {
     }
 
     @action.bound
-    listMakeIDs () {
+    listMakeIDs(){
         this.makeIDs = this.vehicleMakeStore.getMakeIDs(this.makeIDs);
-        console.log(this.makeIDs);
     }
     
     @action.bound
     createItem(){
         return this.vehicleModelStore.add(this.form.values(), this.makeID);
     }
-
-    /* @action.bound
-    setMakeID(e){
-        this.makeID = e.target.value;
-    } */
 }
 
 export default VehicleModelCreateViewStore;

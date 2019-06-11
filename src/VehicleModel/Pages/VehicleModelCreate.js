@@ -13,8 +13,7 @@ const $btn = 'f6 link dim bn br2 ph3 pv2 mr2 dib white bg-dark-blue';
 
 @inject(i => ({
     rootStore: i.rootStore,
-    vehicleModelCreateViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelCreateViewStore,
-    // vehicleMakeListViewStore: i.rootStore.vehicleMakeModuleStore.vehicleMakeListViewStore
+    vehicleModelCreateViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelCreateViewStore
 }))
 
 @observer
@@ -26,15 +25,15 @@ class VehicleModelCreate extends Component {
     };
     
     render() {
-        const { createItem, form, setMakeID, makeID, listMakeIDs, makeIDs } = this.props.vehicleModelCreateViewStore;
-
-        /* const {items: dataMake} = this.props.vehicleMakeListViewStore;
-        const {selectableMakeIds} = dataMake; */
+        const { createItem, form, listMakeIDs, makeIDs } = this.props.vehicleModelCreateViewStore;
         
         const { rootStore } = this.props;
         const { params } = rootStore.routerStore.routerState;
 
         listMakeIDs();
+
+        console.log('make idevi u pageu');
+        console.log(makeIDs);
 
         return (
             <div>
@@ -50,11 +49,13 @@ class VehicleModelCreate extends Component {
                     <SimpleInput field={form.$('Name')} />
                     <div>
                         model make id
-                        {/* <select onChange={setMakeID} value={makeID}>
-                            {selectableMakeIds.map(selectableMakeId => 
-                                <option value={selectableMakeId}>{selectableMakeId}</option>
-                            )}
-                        </select> */}
+                        <select>
+                            {makeIDs.map(makeID => {
+                                return(
+                                    <option key={makeID.id} value={makeID.id}>{makeID.Name}</option>
+                                )
+                            })}
+                        </select>
                     </div>
 
                     <br />

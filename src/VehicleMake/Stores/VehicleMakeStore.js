@@ -8,8 +8,6 @@ class VehicleMakeStore{
         {id: 2, Name: "Land Rover", Abrv: "land-rover"},
         {id: 3, Name: "Mercedes-Benz", Abrv: "mercedes-benz"}
     ];
-
-    @observable currentMakeIds = [];
     
     find(searchString, page, rpp, orderBy, orderDirection) {
         let currentData = this.data.slice();
@@ -38,21 +36,14 @@ class VehicleMakeStore{
     getMakeIDs (makeIDs) {
         // object that gets filled by id and name
         let currentMakeID = {};
-        // create currentMakeIds that is a copy of observable
-        let currentMakeIds = this.currentMakeIds.slice();
         // execute following logic for each element in this.data
         this.data.forEach(function(element){
-            // if currentMakeIds contains id same as in data, don't push it into currentMakeIds, otherwise push data's unique id into currentMakeIds 
-            // eslint-disable-next-line            
-            if(currentMakeIds.includes(element.id) == false){
-                // assign id and name to an object
-                currentMakeID.id = element.id;
-                currentMakeID.Name = element.Name;
-                // push object into array
-                currentMakeIds.push(currentMakeID);
-            }
+            // assign id and name to an object
+            currentMakeID.id = element.id;
+            currentMakeID.Name = element.Name;
+            // push object into array
+            makeIDs.push(currentMakeID);
             // equalize makeIDs array from currentMakeIds values
-            makeIDs = currentMakeIds;
         });
         // returns makeIDs array into VehicleModelCreateViewStore's method that calls getMakeIDs
         return makeIDs;
