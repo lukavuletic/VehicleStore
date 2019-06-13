@@ -6,10 +6,10 @@ import RootStore from './RootStore'
 import { history } from './history';
 import { Shell } from './shell';
 
-// Create the rootStore
+// instance RootStore
 const rootStore = new RootStore();
 
-// Observe history changes
+// observe history changes
 const historyAdapter = new HistoryAdapter(rootStore.routerStore, history);
 historyAdapter.observeRouterStateChanges();
 
@@ -18,10 +18,7 @@ class App extends Component {
     return(
       // Provider makes RootStore available to any nested component
       <Provider rootStore = {rootStore}>
-        <div>
-          <Shell />
-          {/* <Add /> */}
-        </div>
+        <Shell />
       </Provider>
     );
   }

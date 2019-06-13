@@ -1,36 +1,38 @@
-import { computed, action, observable } from 'mobx';
-import VehicleModelForm from './VehicleModelForm';
+import VehicleModelForm from '../Forms/VehicleModelForm';
+import { action, computed } from 'mobx';
 
 class VehicleModelEditViewStore {
-  constructor(moduleStore) {
-    this.moduleStore = moduleStore;
-    this.vehicleModelStore = moduleStore.vehicleModelStore;
-    this.form = new VehicleModelForm(this);
-  }
+	constructor(moduleStore) {
+		this.moduleStore = moduleStore;
+		this.vehicleModelStore = moduleStore.vehicleModelStore;
+		this.vehicleMakeStore = moduleStore.rootStore.vehicleMakeModuleStore.vehicleMakeStore;
+		const { params } = moduleStore.rootStore.routerStore.routerState;
+		// reaction(() => params.id, (id) => { this.form = this.getForm(id) }, {
+		// 	fireImmediately: true
+		//})
+		this.form = this.getForm(params.id);
+	}
 
-  @observable id = 0;
-  @observable makeID = 0;
-  @observable currentAbrv = ''
+	@computed get makes() {
+		return this.vehicleMakeStore.find('', 0, 100, 'Name', 'asc');
+	}
 
-  @computed get items() {
-    return this.vehicleModelStore.get(this.id);
-  }
+	@action.bound getForm(id) {
+		let vehicleModel = this.vehicleModelStore.get(id);
 
-  @action.bound
-  editItem(e) {
-    this.currentAbrv = e.target.value;
-    return this.vehicleModelStore.update(this.form.values(), this.id, this.makeID, this.currentAbrv);
-  }
-
-  @action.bound
-  getItemID(newID) {
-    this.id = newID;
-  }
-
-  @action.bound
-  setMakeID(e){
-    this.makeID = e.target.value;
-  }
+		return new VehicleModelForm({
+			onSuccess: (form) => {
+				console.log(form.values());
+			},
+			onError: (form) => {
+				console.log(form.errors());
+			}
+		}, {
+				Name: vehicleModel.Name,
+				MakeId: vehicleModel.MakeId
+      		}
+    	);
+	}
 }
 
 export default VehicleModelEditViewStore;

@@ -1,15 +1,5 @@
-import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
-
-import { defaultTemplate } from '../../Common/hoc';
-import SimpleInput from '../../Components/simpleInput';
-
-const styles = {
-    root: {
-        padding: 16
-    }
-};
-const $btn = 'f6 link dim bn br2 ph3 pv2 mr2 dib white bg-dark-blue';
+import React from 'react';
+import { inject, observer } from 'mobx-react';
 
 @inject(i => ({
     rootStore: i.rootStore,
@@ -17,57 +7,53 @@ const $btn = 'f6 link dim bn br2 ph3 pv2 mr2 dib white bg-dark-blue';
 }))
 
 @observer
-class VehicleModelCreate extends Component {
+class VehicleModelCreate extends React.Component {
     handleClick = (e) => {
         const { rootStore } = this.props;
         const value = e.target.value;
         rootStore.routerStore.goTo(value);
     };
-    
+
     render() {
-        const { createItem, form, listMakeIDs, makeIDs } = this.props.vehicleModelCreateViewStore;
-        
-        const { rootStore } = this.props;
-        const { params } = rootStore.routerStore.routerState;
 
-        listMakeIDs();
-
-        console.log('make idevi u pageu');
-        console.log(makeIDs);
+        const { form, makes } = this.props.vehicleModelCreateViewStore
 
         return (
-            <div>
+            <React.Fragment>
                 {/* ROUTING */}
-                <div style={styles.root}>
-                    <h1>Welcome to models {params.id}</h1>
+                <div>
                     <button value={'home'} onClick={this.handleClick}>Go Home!</button>
                     <button value={'models'} onClick={this.handleClick}>Go back to models!</button>
                 </div>
 
-                {/* INPUT FIELDS FOR CREATE */}
-                <form onSubmit={form.onSubmit}>
-                    <SimpleInput field={form.$('Name')} />
-                    <div>
-                        model make id
-                        <select>
-                            {makeIDs.map(makeID => {
-                                return(
-                                    <option key={makeID.id} value={makeID.id}>{makeID.Name}</option>
-                                )
-                            })}
-                        </select>
-                    </div>
+                {/* CREATE FORM */}
+                <form>
+                    <label htmlFor={form.$('Name')}>
+                        {form.$('Name').label}
+                    </label>
+                    <input {...form.$('Name').bind()} />
+                    <p>{form.$('Name').error}</p>
 
+                    <label htmlFor={form.$('MakeId').id}>
+                        {form.$('MakeId').label}
+                    </label>
+                    <select {...form.$('MakeId').bind()}>
+                        {makes.items.map(make =>
+                            <option key={make.id} value={make.id}>{make.Name}</option>
+                        )}
+                    </select>
                     <br />
-                    <button type="submit" className={$btn} onClick={createItem}>Submit</button>
-                    <button type="button" className={$btn} onClick={form.onClear}>Clear</button>
-                    <button type="button" className={$btn} onClick={form.onReset}>Reset</button>
+
+                    <button type="submit" onClick={form.onSubmit}>Submit</button>
+                    <button type="button" onClick={form.onClear}>Clear</button>
+                    <button type="button" onClick={form.onReset}>Reset</button>
 
                     <p>{form.error}</p>
                 </form>
-            </div>
-        )
+            </React.Fragment>
+        );
     }
+
 }
 
-export default defaultTemplate(VehicleModelCreate);
+export default VehicleModelCreate;

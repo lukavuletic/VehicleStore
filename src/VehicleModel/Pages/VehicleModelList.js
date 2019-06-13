@@ -10,12 +10,6 @@ import 'rc-pager/assets/bootstrap.css';
 //css for table
 import '../../Common/style.css'
 
-const styles = {
-    root: {
-        padding: 16
-    }
-};
-
 @inject(i => ({
     vehicleModelListViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelListViewStore
 }))
@@ -45,7 +39,7 @@ class VehicleModelList extends Component {
         return(
             <div>
                 {/* ROUTING */}
-                <div style={styles.root}>
+                <div>
                     <h1>Welcome to models {params.id}</h1>
                     <button value={'home'} onClick={this.handleClick}>Go Home!</button>
                     <button value={'modelsCreate'} onClick={this.handleClick}>Create new model!</button>

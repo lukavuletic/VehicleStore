@@ -1,24 +1,16 @@
-import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
+import React from 'react';
+import { inject, observer } from 'mobx-react';
+import VehicleModelEditViewStore from '../Stores/VehicleModelEditViewStore'
 
-import { defaultTemplate } from '../../Common/hoc';
-import SimpleInput from '../../Components/simpleInput';
-
-const styles = {
-    root: {
-        padding: 16
-    }
-};
-const $btn = 'f6 link dim bn br2 ph3 pv2 mr2 dib white bg-dark-blue';
-
+// inject RootStore and instance of VehicleModelEditViewStore
 @inject(i => ({
-    vehicleModelEditViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelEditViewStore,
-    vehicleMakeListViewStore: i.rootStore.vehicleMakeModuleStore.vehicleMakeListViewStore,
-    rootStore: i.rootStore
+    rootStore: i.rootStore,
+    vehicleModelEditViewStore: new VehicleModelEditViewStore(i.rootStore.vehicleModelModuleStore)
 }))
 
 @observer
-class VehicleModelEdit extends Component {
+class VehicleModelEdit extends React.Component {
+
     handleClick = (e) => {
         const { rootStore } = this.props;
         const value = e.target.value;
@@ -26,68 +18,46 @@ class VehicleModelEdit extends Component {
     };
 
     render() {
-        const { form, editItem, getItemID, items: data, setMakeID, makeID } = this.props.vehicleModelEditViewStore;
-        const { items } = data;
 
-        const { items: dataMake } = this.props.vehicleMakeListViewStore;
-        const { selectableMakeIds } = dataMake;
+        const { form, makes } = this.props.vehicleModelEditViewStore;
 
-        const { rootStore } = this.props;
-        const { params } = rootStore.routerStore.routerState;
-
-        getItemID(params.id);
+        if (!form) return null;
 
         return (
-            <div>
+            <React.Fragment>
                 {/* ROUTING */}
-                <div style={styles.root}>
-                    <h1>Editing item with ID of: {params.id}</h1>
+                <div>
                     <button value={'home'} onClick={this.handleClick}>Go Home!</button>
                     <button value={'models'} onClick={this.handleClick}>Go back to models!</button>
                 </div>
 
-                <table>
-                    <thead></thead>
-                    <tbody>
-                        <tr>
-                            <td>{items.id}</td>
-                            <td>{items.Name}</td>
-                            <td>{items.Abrv}</td>
-                            <td>{items.MakeId}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                {/* EDIT FORM */}
+                {<form>
+                    <label htmlFor={form.$('Name')}>
+                        {form.$('Name').label}
+                    </label>
+                    <input {...form.$('Name').bind()} />
+                    <p>{form.$('Name').error}</p>
 
-                {/* INPUT FIELDS FOR CREATE */}
-                <form onSubmit={form.onSubmit}>
-                    <SimpleInput field={form.$('Name')} />
-                    <div>
-                        model make id
-                        <select onChange={setMakeID} value={makeID} required>
-                            {selectableMakeIds.map((selectableMakeId) => {
-                                    console.log(items.MakeId + ' ' + selectableMakeId);
-                                    // eslint-disable-next-line
-                                    if(items.MakeId == selectableMakeId){
-                                        console.log('set selected value');
-                                        return <option value={selectableMakeId} selected>{selectableMakeId}</option>;
-                                    }else{
-                                        return <option value={selectableMakeId}>{selectableMakeId}</option>;
-                                    }
-                                } 
-                            )}
-                        </select>
-                    </div>
-
+                    <label htmlFor={form.$('MakeId').id}>
+                        {form.$('MakeId').label}
+                    </label>
+                    <select {...form.$('MakeId').bind()}>
+                        {makes.items.map(make =>
+                            <option key={make.id} value={make.id}>{make.Name}</option>
+                        )}
+                    </select>
                     <br />
-                    <button type="submit" className={$btn} onClick={editItem} value={items.Abrv}>Submit</button>
-                    <button type="button" className={$btn} onClick={form.onClear}>Clear</button>
-                    <button type="button" className={$btn} onClick={form.onReset}>Reset</button>
+
+                    <button type="submit" onClick={form.onSubmit}>Submit</button>
+                    <button type="button" onClick={form.onClear}>Clear</button>
+                    <button type="button" onClick={form.onReset}>Reset</button>
 
                     <p>{form.error}</p>
-                </form>
-            </div>
-        )
+                </form>}
+            </React.Fragment>
+        );
     }
 }
 
-export default defaultTemplate(VehicleModelEdit);
+export default VehicleModelEdit;

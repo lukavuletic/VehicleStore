@@ -1,5 +1,5 @@
-import VehicleMakeList from './VehicleMakeList';
 import VehicleMakeCreate from './VehicleMakeCreate';
+import VehicleMakeList from './VehicleMakeList';
 
 class VehicleMakeModulePage{
     constructor(rootStore){
@@ -7,8 +7,8 @@ class VehicleMakeModulePage{
 
         this.vehicleModelPage = new VehicleModelPage(this);
         
-        this.VehicleMakeList = new VehicleMakeList(this);
         this.vehicleMakeCreate = new VehicleMakeCreate(this);
+        this.VehicleMakeList = new VehicleMakeList(this);
     }
 }
 

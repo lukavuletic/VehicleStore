@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 
 import { defaultTemplate } from '../../Common/hoc';
-import SimpleInput from '../../Components/simpleInput';
 import form from '../Stores/VehicleMakeCreateViewStore'
 
 const styles = {
@@ -37,9 +36,6 @@ class VehicleMakeCreateViewStore extends Component {
 
                 {/* INPUT FIELDS FOR CREATE */}
                 <form onSubmit={form.onSubmit}>
-                    <SimpleInput field={form.$('id')} />
-                    <SimpleInput field={form.$('Name')} />
-                    <SimpleInput field={form.$('Abrv')} />
 
                     <br />
                     <button type="submit" className={$btn} onClick={form.onSubmit}>Submit</button>

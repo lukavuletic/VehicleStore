@@ -48,10 +48,8 @@ class VehicleModelStore{
     get(id){
         // wants to strictly compare 'any' and 'number' types (gives warning)
         // eslint-disable-next-line
-        let itemIndex = this.data.findIndex(function(i){return i.id == id;});
-        return {
-            items: this.data[itemIndex]
-        }
+        let vehicle = _.find(this.data, function (model) { return model.id == id });
+        return vehicle;
     }
 
     @action.bound 

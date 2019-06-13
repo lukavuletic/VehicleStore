@@ -9,6 +9,7 @@ class VehicleMakeStore{
         {id: 3, Name: "Mercedes-Benz", Abrv: "mercedes-benz"}
     ];
     
+    @action.bound
     find(searchString, page, rpp, orderBy, orderDirection) {
         let currentData = this.data.slice();
 
