@@ -10,37 +10,40 @@ import 'rc-pager/assets/bootstrap.css';
 //css for table
 import '../../Common/style.css'
 
-const styles = {
-    root: {
-        padding: 16
-    }
-};
-
+// inject RootStore and VehicleModelListViewStore
 @inject(i => ({
+    rootStore: i.rootStore,
     vehicleMakeListViewStore: i.rootStore.vehicleMakeModuleStore.vehicleMakeListViewStore
 }))
-@inject('rootStore')
 
 @observer
 class VehicleMakeList extends Component {
+    // handlers for routing, takes value of a button and takes you to that route
     handleClick = (e) => {
         const { rootStore } = this.props;
         const value = e.target.value;
         rootStore.routerStore.goTo(value);
     };
 
+    handleClickEdit = (e) => {
+        const { rootStore } = this.props;
+        const value = e.target.value;
+        rootStore.routerStore.goTo('makesID', { id: value });
+    };
+
     render() {
+        // passed methods and variables from VehicleMakeCreateViewStore
 		const {items: data, setOrderDirection, setSearchString, setOrderBy, handleSkip, setRpp, deleteItem} = this.props.vehicleMakeListViewStore;
+        const {page, rpp, searchString, items, totalItems} = data;
 
-        const {page, rpp, searchString, orderBy, orderDirection, items, totalItems} = data;
-
+        // passed methods and variables from RootStore (need this to get params from routing)
         const { rootStore } = this.props;
         const { params } = rootStore.routerStore.routerState;
 
         return(
-            <div>
+            <React.Fragment>
                 {/* ROUTING */}
-                <div style={styles.root}>
+                <div>
                     <h1>Welcome to makes {params.id}</h1>
                     <button value={'home'} onClick={this.handleClick}>Go Home!</button>
                     <button value={'makesCreate'} onClick={this.handleClick}>Create new make!</button>
@@ -63,26 +66,19 @@ class VehicleMakeList extends Component {
                                 <td>{item.id}</td>
                                 <td>{item.Name}</td>
                                 <td>{item.Abrv}</td>
-                                <td><button>edit</button><button value={item.id} onClick={deleteItem}>delete</button></td>
+                                <td>
+                                    <button value={item.id} onClick={this.handleClickEdit}>edit</button>
+                                    <button value={item.id} onClick={deleteItem}>delete</button>
+                                </td>
                             </tr>
                             )}
                         </tbody>
-                    </table>
-                    <span>Page: {page}</span>
-                    <span>Rpp: {rpp}</span>
-                    <span>Search: {searchString}</span>
-                    <span>Order by: {orderBy}</span>
-                    <span>Order direction: {orderDirection}</span>                    
+                    </table>            
                 </div>
                 
                 {/* SEARCH */}
                 <div>
-                    <input 
-                        placeholder="Search by name"
-                        type="text"
-                        value={searchString}
-                        onChange={setSearchString}
-                    />
+                    <input placeholder="Search by name" type="text" value={searchString} onChange={setSearchString}/>
                 </div>
 
                 {/* CHANGE RPP */}
@@ -96,7 +92,7 @@ class VehicleMakeList extends Component {
 
                 {/* PAGER */}
                 <Pager total={Math.ceil(totalItems / rpp)} current={page} onSkipTo={handleSkip.bind(this)}/>
-            </div>
+            </React.Fragment>
         );
     }
 }

@@ -10,7 +10,7 @@ import VehicleModelEditViewStore from '../Stores/VehicleModelEditViewStore'
 
 @observer
 class VehicleModelEdit extends React.Component {
-
+    // handler for routing, takes value of a button and takes you to that route
     handleClick = (e) => {
         const { rootStore } = this.props;
         const value = e.target.value;
@@ -18,9 +18,10 @@ class VehicleModelEdit extends React.Component {
     };
 
     render() {
-
+        // passed methods and variables from VehicleModelEditViewStore
         const { form, makes } = this.props.vehicleModelEditViewStore;
 
+        // if form is non existant, return null (fix for params from routing)
         if (!form) return null;
 
         return (
@@ -32,7 +33,7 @@ class VehicleModelEdit extends React.Component {
                 </div>
 
                 {/* EDIT FORM */}
-                {<form>
+                <form>
                     <label htmlFor={form.$('Name')}>
                         {form.$('Name').label}
                     </label>
@@ -54,7 +55,7 @@ class VehicleModelEdit extends React.Component {
                     <button type="button" onClick={form.onReset}>Reset</button>
 
                     <p>{form.error}</p>
-                </form>}
+                </form>
             </React.Fragment>
         );
     }

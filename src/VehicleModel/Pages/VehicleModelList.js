@@ -10,13 +10,15 @@ import 'rc-pager/assets/bootstrap.css';
 //css for table
 import '../../Common/style.css'
 
+// inject RootStore and VehicleModelListViewStore
 @inject(i => ({
+    rootStore: i.rootStore,
     vehicleModelListViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelListViewStore
 }))
-@inject('rootStore')
 
 @observer
 class VehicleModelList extends Component {
+    // handlers for routing, takes value of a button and takes you to that route
     handleClick = (e) => {
         const { rootStore } = this.props;
         const value = e.target.value;
@@ -30,14 +32,16 @@ class VehicleModelList extends Component {
     };
 
     render() {
+        // passed methods and variables from VehicleModelCreateViewStore
 		const {items: data, setOrderDirection, setSearchString, setOrderBy, handleSkip, setRpp, deleteItem} = this.props.vehicleModelListViewStore;
-        const {page, rpp, searchString, orderBy, orderDirection, items, totalItems} = data;
+        const {page, rpp, searchString, items, totalItems} = data;
 
+        // passed methods and variables from RootStore (need this to get params from routing)
         const { rootStore } = this.props;
         const { params } = rootStore.routerStore.routerState;
 
         return(
-            <div>
+            <React.Fragment>
                 {/* ROUTING */}
                 <div>
                     <h1>Welcome to models {params.id}</h1>
@@ -71,22 +75,12 @@ class VehicleModelList extends Component {
                             </tr>
                             )}
                         </tbody>
-                    </table>
-                    <span>Page: {page}</span>
-                    <span>Rpp: {rpp}</span>
-                    <span>Search: {searchString}</span>
-                    <span>Order by: {orderBy}</span>
-                    <span>Order direction: {orderDirection}</span>                    
+                    </table>                 
                 </div>
                 
                 {/* SEARCH */}
                 <div>
-                    <input 
-                        placeholder="Search by name"
-                        type="text"
-                        value={searchString}
-                        onChange={setSearchString}
-                    />
+                    <input placeholder="Search by name" type="text" value={searchString} onChange={setSearchString}/>
                 </div>
 
                 {/* CHANGE RPP */}
@@ -100,7 +94,7 @@ class VehicleModelList extends Component {
 
                 {/* PAGER */}
                 <Pager total={Math.ceil(totalItems / rpp)} current={page} onSkipTo={handleSkip.bind(this)}/>
-            </div>
+            </React.Fragment>
         );
     }
 }

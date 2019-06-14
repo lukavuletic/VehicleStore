@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
+import React from 'react';
+import { inject, observer } from 'mobx-react';
+import VehicleMakeEditViewStore from '../Stores/VehicleMakeEditViewStore'
 
-// inject RootStore and VehicleMakeCreateViewStore
+// inject RootStore and instance of VehicleMakeEditViewStore
 @inject(i => ({
     rootStore: i.rootStore,
-    vehicleMakeCreateViewStore: i.rootStore.vehicleMakeModuleStore.vehicleMakeCreateViewStore
+    vehicleMakeEditViewStore: new VehicleMakeEditViewStore(i.rootStore.vehicleMakeModuleStore)
 }))
 
 @observer
-class VehicleMakeCreateViewStore extends Component {
+class VehicleMakeEdit extends React.Component {
     // handler for routing, takes value of a button and takes you to that route
     handleClick = (e) => {
         const { rootStore } = this.props;
@@ -17,10 +18,13 @@ class VehicleMakeCreateViewStore extends Component {
     };
 
     render() {
-        // passed methods and variables from VehicleModelCreateViewStore
-        const { form } = this.props.vehicleMakeCreateViewStore
+        // passed methods and variables from VehicleModelEditViewStore
+        const { form } = this.props.vehicleMakeEditViewStore;
 
-        return (            
+        // if form is non existant, return null (fix for params from routing)
+        if (!form) return null;
+
+        return (
             <React.Fragment>
                 {/* ROUTING */}
                 <div>
@@ -28,7 +32,7 @@ class VehicleMakeCreateViewStore extends Component {
                     <button value={'makes'} onClick={this.handleClick}>Go back to makes!</button>
                 </div>
 
-                {/* CREATE FORM */}
+                {/* EDIT FORM */}
                 <form>
                     <label htmlFor={form.$('Name')}>
                         {form.$('Name').label}
@@ -44,8 +48,8 @@ class VehicleMakeCreateViewStore extends Component {
                     <p>{form.error}</p>
                 </form>
             </React.Fragment>
-        )
+        );
     }
 }
 
-export default VehicleMakeCreateViewStore;
+export default VehicleMakeEdit;

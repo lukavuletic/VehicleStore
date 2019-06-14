@@ -1,7 +1,8 @@
 import _ from 'lodash';
-import { observable, action } from 'mobx';
+import { observable } from 'mobx';
 
 class VehicleModelStore{
+    // dummy data
     @observable 
     data = [
         {id: 0, Name: "320d", Abrv: "320d", MakeId: 0},
@@ -22,17 +23,27 @@ class VehicleModelStore{
         {id: 15, Name: "Freelander", Abrv: "freelander", MakeId: 2}
     ];
     
+    // method that returns below listed data
     find(searchString, page, rpp, orderBy, orderDirection) {
+        // make a copy of data
         let currentData = this.data.slice();
 
+        // check if user typed something in search
         if(searchString != null && searchString !== '') {
+            // current data becomes filtered data based on user's input in search
             currentData = currentData.filter(car => car.Name.toLowerCase().includes(searchString.toLowerCase()));
         }
 
+        // order data based on parameters
         currentData = _.orderBy(currentData, [orderBy], [orderDirection]);
+
+        // count total items in array so pager knows total amount of pages
         const totalItems = currentData.length;
+
+        // take as many results into data as user wants
         currentData = _(currentData).drop(page*rpp).take(rpp).value();
         
+        // return all data
         return {
 			searchString: searchString,
 			page: page,
@@ -44,16 +55,13 @@ class VehicleModelStore{
 		};
     }
 
-    @action.bound 
+    // get object with provided id
     get(id){
-        // wants to strictly compare 'any' and 'number' types (gives warning)
-        // eslint-disable-next-line
-        let vehicle = _.find(this.data, function (model) { return model.id == id });
-        return vehicle;
+        // return object that corresponds to provided id in data
+        return _.find(this.data, function (model) { return model.id === Number(id) });
     }
 
     // method for receiving object from form, finalizing it, and pushing into actual data
-    @action.bound 
     add(newModel){
         // map through data to get max id then increment it by 1 and append it to object
         let maxID = 0;
@@ -75,10 +83,10 @@ class VehicleModelStore{
         this.data.push(newModel);
     }
 
-    @action.bound 
+    // method that received object from form and updates element with received id
     update(editedModel){
-        // remove item with given id
-        this.data.splice(this.data.findIndex(function(i){return i.id === Number(editedModel.id);}), 1);
+        // remove item with given model's id
+        this.data.splice(this.data.findIndex(function(i){ return i.id === Number(editedModel.id); }), 1);
 
         // add model with that id, but now edited
         editedModel.id = Number(editedModel.id);
@@ -89,7 +97,6 @@ class VehicleModelStore{
     }
 
     // method that removes element from data based on provided id
-    @action.bound 
     delete(id){
         // find id in data based on given id then return same array with chosen element removed
         this.data.splice(this.data.findIndex(function(i){ return i.id === Number(id); }), 1);

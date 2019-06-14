@@ -1,6 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 
+// inject RootStore and VehicleModelCreateViewStore
 @inject(i => ({
     rootStore: i.rootStore,
     vehicleModelCreateViewStore: i.rootStore.vehicleModelModuleStore.vehicleModelCreateViewStore
@@ -8,6 +9,7 @@ import { inject, observer } from 'mobx-react';
 
 @observer
 class VehicleModelCreate extends React.Component {
+    // handler for routing, takes value of a button and takes you to that route
     handleClick = (e) => {
         const { rootStore } = this.props;
         const value = e.target.value;
@@ -15,7 +17,7 @@ class VehicleModelCreate extends React.Component {
     };
 
     render() {
-
+        // passed methods and variables from VehicleModelCreateViewStore
         const { form, makes } = this.props.vehicleModelCreateViewStore
 
         return (
@@ -42,6 +44,7 @@ class VehicleModelCreate extends React.Component {
                             <option key={make.id} value={make.id}>{make.Name}</option>
                         )}
                     </select>
+                    <p>{form.$('MakeId').error}</p>
                     <br />
 
                     <button type="submit" onClick={form.onSubmit}>Submit</button>

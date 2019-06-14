@@ -1,3 +1,4 @@
+// define routes for mobx-state-router
 export const routes = [
     {
         name: 'home',
