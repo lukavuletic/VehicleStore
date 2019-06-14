@@ -64,7 +64,10 @@ class VehicleModelList extends Component {
                                 <td>{item.Name}</td>
                                 <td>{item.Abrv}</td>
                                 <td>{item.MakeId}</td>
-                                <td><button value={item.id} onClick={this.handleClickEdit}>edit</button><button value={item.id} onClick={deleteItem}>delete</button></td>
+                                <td>
+                                    <button value={item.id} onClick={this.handleClickEdit}>edit</button>
+                                    <button value={item.id} onClick={deleteItem}>delete</button>
+                                </td>
                             </tr>
                             )}
                         </tbody>

@@ -8,9 +8,9 @@ class VehicleModelListViewStore {
 	
 	@observable	page = 0; 
 	@observable	rpp = 10;
-	@observable	searchString = "";
-	@observable	orderBy = "id";
-	@observable	orderDirection = "desc";
+	@observable	searchString = '';
+	@observable	orderBy = 'id';
+	@observable	orderDirection = 'desc';
 
     @computed get items() {
 		return this.vehicleModelStore.find(this.searchString, this.page, this.rpp, this.orderBy, this.orderDirection);
@@ -18,8 +18,7 @@ class VehicleModelListViewStore {
 
 	@action.bound
 	deleteItem(e){
-		let id = e.target.value;
-		return this.vehicleModelStore.delete(id);
+		this.vehicleModelStore.delete(e.target.value);
 	}
 
 	@action.bound
