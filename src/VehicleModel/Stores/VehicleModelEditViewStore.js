@@ -7,9 +7,6 @@ class VehicleModelEditViewStore {
 		this.vehicleModelStore = moduleStore.vehicleModelStore;
 		this.vehicleMakeStore = moduleStore.rootStore.vehicleMakeModuleStore.vehicleMakeStore;
 		const { params } = moduleStore.rootStore.routerStore.routerState;
-		// reaction(() => params.id, (id) => { this.form = this.getForm(id) }, {
-		// 	fireImmediately: true
-		//})
 		this.form = this.getForm(params.id);
 	}
 

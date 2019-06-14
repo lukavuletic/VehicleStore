@@ -15,10 +15,15 @@ const placeholders = {
     MakeId: 'Insert model\'s name',
 };
 
+const rules = {
+    Name: 'required|string|between:1,25',
+    MakeId: 'required'
+}
+
 // class that defines form
 class VehicleModelForm extends BaseForm {
     constructor(hooks, values) {
-        super({ fields, labels, placeholders, values }, { hooks })
+        super({ fields, labels, placeholders, values, rules }, { hooks })
     }
 
 }

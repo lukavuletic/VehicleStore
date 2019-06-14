@@ -78,15 +78,13 @@ class VehicleModelStore{
     @action.bound 
     update(editedModel){
         // remove item with given id
-        // wants to strictly compare 'any' and 'number' types (gives warning)
-        // eslint-disable-next-line
-        this.data.splice(this.data.findIndex(function(i){return i.id == editedModel.id;}), 1);
-        // add item with that id
+        this.data.splice(this.data.findIndex(function(i){return i.id === Number(editedModel.id);}), 1);
 
+        // add model with that id, but now edited
         editedModel.id = Number(editedModel.id);
-        editedModel.MakeId = Number(editedModel.MakeId);
-        editedModel.Abrv = String(editedModel.Abrv);
         editedModel.Name = String(editedModel.Name);
+        editedModel.Abrv = String(editedModel.Abrv);
+        editedModel.MakeId = Number(editedModel.MakeId);
         this.data.push(editedModel);
     }
 
