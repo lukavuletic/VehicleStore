@@ -22,14 +22,16 @@ class VehicleModelEditViewStore {
 
 		return new VehicleModelForm({
 			onSuccess: (form) => {
-				console.log(form.values());
+				this.vehicleModelStore.update(form.values());
 			},
 			onError: (form) => {
 				console.log(form.errors());
 			}
 		}, {
 				Name: vehicleModel.Name,
-				MakeId: vehicleModel.MakeId
+				MakeId: vehicleModel.MakeId,
+				Abrv: vehicleModel.Abrv,
+				id: vehicleModel.id
       		}
     	);
 	}
