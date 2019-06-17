@@ -1,4 +1,4 @@
-import BaseForm from '../../Common/BaseForm';
+import BaseForm from '../../common/BaseForm';
 
 // define field name value for form
 const fields = ['Name'];

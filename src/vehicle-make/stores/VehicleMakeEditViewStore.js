@@ -1,5 +1,6 @@
-import VehicleMakeForm from '../Forms/VehicleMakeForm';
 import { action } from 'mobx';
+
+import VehicleMakeForm from '../forms/VehicleMakeForm';
 
 class VehicleMakeEditViewStore {
 	constructor(moduleStore) {

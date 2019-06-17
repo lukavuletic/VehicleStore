@@ -1,5 +1,6 @@
-import VehicleModelForm from '../Forms/VehicleModelForm';
 import { action, computed } from 'mobx';
+
+import VehicleModelForm from '../forms/VehicleModelForm';
 
 class VehicleModelEditViewStore {
 	constructor(moduleStore) {

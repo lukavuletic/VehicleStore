@@ -4,7 +4,7 @@ import { HistoryAdapter } from 'mobx-state-router';
 
 import RootStore from './RootStore'
 import { history } from './history';
-import { Shell } from './shell';
+import { Shell } from './Shell';
 
 // instance RootStore
 const rootStore = new RootStore();

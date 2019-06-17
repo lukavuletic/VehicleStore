@@ -1,8 +1,8 @@
 import { RouterState, RouterStore } from 'mobx-state-router';
 
 import { routes } from './routes';
-import { VehicleMakeModuleStore } from '../VehicleMake/Stores';
-import { VehicleModelModuleStore } from '../VehicleModel/Stores';
+import { VehicleMakeModuleStore } from '../vehicle-make/stores';
+import { VehicleModelModuleStore } from '../vehicle-model/stores';
 
 // instance RouterState to be used through RootStore
 const notFound = new RouterState('notFound');

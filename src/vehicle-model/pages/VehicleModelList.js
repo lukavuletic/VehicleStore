@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import Pager from 'rc-pager';
 
-import { defaultTemplate } from '../../Common/hoc';
+import { defaultTemplate } from '../../common/hoc';
 
 // css for pager
 import 'rc-pager/assets/bootstrap.css';
 
 //css for table
-import '../../Common/style.css'
+import '../../common/style.css'
 
 // inject RootStore and VehicleModelListViewStore
 @inject(i => ({

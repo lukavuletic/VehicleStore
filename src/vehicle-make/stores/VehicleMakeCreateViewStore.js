@@ -1,4 +1,4 @@
-import VehicleMakeForm from '../Forms/VehicleMakeForm';
+import VehicleMakeForm from '../forms/VehicleMakeForm';
 
 class VehicleMakeCreateViewStore {
     constructor(moduleStore) {

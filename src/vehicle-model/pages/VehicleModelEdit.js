@@ -1,6 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import VehicleModelEditViewStore from '../Stores/VehicleModelEditViewStore'
+
+import VehicleModelEditViewStore from '../stores/VehicleModelEditViewStore'
 
 // inject RootStore and instance of VehicleModelEditViewStore
 @inject(i => ({

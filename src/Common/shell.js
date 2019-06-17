@@ -2,14 +2,14 @@ import React from 'react';
 import { inject } from 'mobx-react';
 import { RouterView } from 'mobx-state-router';
 
-import VehicleModelList from '../VehicleModel/Pages/VehicleModelList';
-import VehicleModelCreate from '../VehicleModel/Pages/VehicleModelCreate';
-import VehicleModelEdit from '../VehicleModel/Pages/VehicleModelEdit';
-import VehicleMakeList from '../VehicleMake/Pages/VehicleMakeList';
-import VehicleMakeCreate from '../VehicleMake/Pages/VehicleMakeCreate';
-import VehicleMakeEdit from '../VehicleMake/Pages/VehicleMakeEdit';
-import { HomePage } from '../HomePage/Pages/HomePage';
-import { NotFoundPage } from './notFoundPage';
+import VehicleModelList from '../vehicle-model/pages/VehicleModelList';
+import VehicleModelCreate from '../vehicle-model/pages/VehicleModelCreate';
+import VehicleModelEdit from '../vehicle-model/pages/VehicleModelEdit';
+import VehicleMakeList from '../vehicle-make/pages/VehicleMakeList';
+import VehicleMakeCreate from '../vehicle-make/pages/VehicleMakeCreate';
+import VehicleMakeEdit from '../vehicle-make/pages/VehicleMakeEdit';
+import { HomePage } from '../home-page/Pages/HomePage';
+import { NotFoundPage } from './NotFoundPage';
 
 // define components that will be loaded by accessing specific routes
 const viewMap = {
