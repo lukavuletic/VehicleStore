@@ -24,19 +24,6 @@ class VehicleModelStore extends BaseDataStore{
     constructor(){
         super(data);
     }
-
-    // method that received object from form and updates element with received id
-    update(editedModel){
-        // remove item with given model's id
-        this.data.splice(this.data.findIndex(function(i){ return i.id === Number(editedModel.id); }), 1);
-
-        // add model with that id, but now edited
-        editedModel.id = Number(editedModel.id);
-        editedModel.Name = String(editedModel.Name);
-        editedModel.Abrv = String(editedModel.Abrv);
-        editedModel.MakeId = Number(editedModel.MakeId);
-        this.data.push(editedModel);
-    }
 }
 
 export default VehicleModelStore;

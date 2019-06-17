@@ -73,7 +73,28 @@ class BaseDataStore {
         // find id in data based on given id then return same array with chosen element removed
         this.data.splice(this.data.findIndex(function(item){ return item.id === Number(id); }), 1);
     }
-    
+
+    // method that receives object from form and updates element with received id
+    update(editedItem){
+        // remove item with given item's id
+        this.data.splice(this.data.findIndex(function(item){ return item.id === Number(editedItem.id); }), 1);
+
+        // if given item has 4 keys then it's a model, otherwise it's a make
+        if((Object.keys(editedItem)).length === 4){
+            // add item with that id, but now edited
+            editedItem.id = Number(editedItem.id);
+            editedItem.Name = String(editedItem.Name);
+            editedItem.Abrv = String(editedItem.Abrv);
+            editedItem.MakeId = Number(editedItem.MakeId);
+            this.data.push(editedItem);
+        }else{
+            // add item with that id, but now edited
+            editedItem.id = Number(editedItem.id);
+            editedItem.Name = String(editedItem.Name);
+            editedItem.Abrv = String(editedItem.Abrv);
+            this.data.push(editedItem);
+        }
+    }    
 }
 
 export default BaseDataStore;
