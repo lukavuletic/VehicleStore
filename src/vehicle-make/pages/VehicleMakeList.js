@@ -50,7 +50,7 @@ class VehicleMakeList extends Component {
                                     <td>{item.Name}</td>
                                     <td>{item.Abrv}</td>
                                     <td>
-                                        <button value={['makesID', item.id]} onClick={this.props.rootStore.goToRouteEdit}>edit</button>
+                                        <button value={['makesID', item.id]} onClick={this.props.rootStore.goToRoute}>edit</button>
                                         <button value={item.id} onClick={deleteItem}>delete</button>
                                     </td>
                                 </tr>                                

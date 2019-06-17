@@ -11,13 +11,14 @@ class RootStore{
     // instance RouterStore to be used through RootStore
     routerStore = new RouterStore(this, routes, notFound);
     
-    // methods that change user's route
+    // method that changes user's route
     goToRoute = (e) => {
-        this.routerStore.goTo(e.target.value);
-    };
-    goToRouteEdit = (e) => {
-        const routingParams = e.target.value.split(',');
-        this.routerStore.goTo(routingParams[0], { id: routingParams[1] });
+        let routingParams = e.target.value.split(',');
+        if(routingParams.length === 1){
+            this.routerStore.goTo(e.target.value);
+        }else{
+            this.routerStore.goTo(routingParams[0], { id: routingParams[1] });
+        }
     };
     
     constructor(){
