@@ -9,14 +9,7 @@ import { inject, observer } from 'mobx-react';
 
 @observer
 class VehicleModelCreate extends React.Component {
-    // handler for routing, takes value of a button and takes you to that route
-    handleClick = (e) => {
-        const { rootStore } = this.props;
-        const value = e.target.value;
-        rootStore.routerStore.goTo(value);
-    };
-
-    render() {
+   render() {
         // passed methods and variables from VehicleModelCreateViewStore
         const { form, makes } = this.props.vehicleModelCreateViewStore
 
@@ -24,8 +17,8 @@ class VehicleModelCreate extends React.Component {
             <React.Fragment>
                 {/* ROUTING */}
                 <div>
-                    <button value={'home'} onClick={this.handleClick}>Go Home!</button>
-                    <button value={'models'} onClick={this.handleClick}>Go back to models!</button>
+                    <button value={'home'} onClick={this.props.rootStore.goToRoute}>Go Home!</button>
+                    <button value={'models'} onClick={this.props.rootStore.goToRoute}>Go back to models!</button>
                 </div>
 
                 {/* CREATE FORM */}

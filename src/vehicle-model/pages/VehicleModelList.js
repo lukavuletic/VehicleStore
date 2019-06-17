@@ -18,35 +18,18 @@ import '../../common/style.css'
 
 @observer
 class VehicleModelList extends Component {
-    // handlers for routing, takes value of a button and takes you to that route
-    handleClick = (e) => {
-        const { rootStore } = this.props;
-        const value = e.target.value;
-        rootStore.routerStore.goTo(value);
-    };
-
-    handleClickEdit = (e) => {
-        const { rootStore } = this.props;
-        const value = e.target.value;
-        rootStore.routerStore.goTo('modelsID', { id: value });
-    };
-
     render() {
         // passed methods and variables from VehicleModelCreateViewStore
 		const {items: data, setOrderDirection, setSearchString, setOrderBy, handleSkip, setRpp, deleteItem} = this.props.vehicleModelListViewStore;
         const {page, rpp, searchString, items, totalItems} = data;
-
-        // passed methods and variables from RootStore (need this to get params from routing)
-        const { rootStore } = this.props;
-        const { params } = rootStore.routerStore.routerState;
-
+        
         return(
             <React.Fragment>
                 {/* ROUTING */}
                 <div>
-                    <h1>Welcome to models {params.id}</h1>
-                    <button value={'home'} onClick={this.handleClick}>Go Home!</button>
-                    <button value={'modelsCreate'} onClick={this.handleClick}>Create new model!</button>
+                    <h1>Welcome to models</h1>
+                    <button value={'home'} onClick={this.props.rootStore.goToRoute}>Go Home!</button>
+                    <button value={'modelsCreate'} onClick={this.props.rootStore.goToRoute}>Create new model!</button>
                 </div>
 
                 {/* TABLE */}
@@ -69,7 +52,7 @@ class VehicleModelList extends Component {
                                 <td>{item.Abrv}</td>
                                 <td>{item.MakeId}</td>
                                 <td>
-                                    <button value={item.id} onClick={this.handleClickEdit}>edit</button>
+                                    <button value={item.id} onClick={this.props.rootStore.goToRouteEdit}>edit</button>
                                     <button value={item.id} onClick={deleteItem}>delete</button>
                                 </td>
                             </tr>
