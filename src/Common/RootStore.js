@@ -13,11 +13,13 @@ class RootStore{
     
     // method that changes user's route
     goToRoute = (e) => {
+        // routingParams will become an array that takes route name and id of item
         let routingParams = e.target.value.split(',');
-        if(routingParams.length === 1){
-            this.routerStore.goTo(e.target.value);
-        }else{
+        // check if routingParams received 2 items, if so we're having an editing route, if not we're having a normal routing method
+        if(routingParams.length === 2){
             this.routerStore.goTo(routingParams[0], { id: routingParams[1] });
+        }else{
+            this.routerStore.goTo(e.target.value);
         }
     };
     
