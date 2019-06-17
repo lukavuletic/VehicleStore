@@ -46,16 +46,16 @@ class VehicleModelList extends Component {
                         </thead>
                         <tbody>
                             {items.map(item => 
-                            <tr key={item.id}>
-                                <td>{item.id}</td>
-                                <td>{item.Name}</td>
-                                <td>{item.Abrv}</td>
-                                <td>{item.MakeId}</td>
-                                <td>
-                                    <button value={item.id} onClick={this.props.rootStore.goToRouteEdit}>edit</button>
-                                    <button value={item.id} onClick={deleteItem}>delete</button>
-                                </td>
-                            </tr>
+                                <tr key={item.id}>
+                                    <td>{item.id}</td>
+                                    <td>{item.Name}</td>
+                                    <td>{item.Abrv}</td>
+                                    <td>{item.MakeId}</td>
+                                    <td>
+                                        <button value={['modelsID', item.id]} onClick={this.props.rootStore.goToRouteEdit}>edit</button>
+                                        <button value={item.id} onClick={deleteItem}>delete</button>
+                                    </td>
+                                </tr>                                
                             )}
                         </tbody>
                     </table>                 

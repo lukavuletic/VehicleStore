@@ -16,7 +16,8 @@ class RootStore{
         this.routerStore.goTo(e.target.value);
     };
     goToRouteEdit = (e) => {
-        this.routerStore.goTo('modelsID', { id: e.target.value });
+        const routingParams = e.target.value.split(',');
+        this.routerStore.goTo(routingParams[0], { id: routingParams[1] });
     };
     
     constructor(){
