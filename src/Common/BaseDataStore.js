@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 import _ from 'lodash';
 
 class BaseDataStore {
@@ -46,12 +46,14 @@ class BaseDataStore {
     }
     
     // gets item's IDs and changes array from ViewStore into item's id values
+    @action.bound
     get(id){
         // return object that corresponds to provided id in data
         return _.find(this.data, function (item) { return item.id === Number(id) });
     }
 
-    // method for receiving object from form, finalizing it, and pushing into actual data
+    // method for receiving object from form, finalizing it, and pushing into actual data    
+    @action.bound
     add(newItem){
         // map through data to get max id then increment it by 1 and append it to object
         let maxID = 0;
@@ -67,14 +69,16 @@ class BaseDataStore {
         // when the object is ready, push it into data
         this.data.push(newItem);
     }
-
+    
     // method that removes element from data based on provided id
+    @action.bound
     delete(id){
         // find id in data based on given id then return same array with chosen element removed
         this.data.splice(this.data.findIndex(function(item){ return item.id === Number(id); }), 1);
     }
 
     // method that receives object from form and updates element with received id
+    @action.bound
     update(editedItem){
         // remove item with given item's id
         this.data.splice(this.data.findIndex(function(item){ return item.id === Number(editedItem.id); }), 1);
